@@ -35,7 +35,7 @@ app.use(logger('dev'))
 
 
 app.get('/',(req,res)=>{
-    res.status(200).send('prosper rest api')
+    res.status(200).send('sato rest api')
 })
 
 
