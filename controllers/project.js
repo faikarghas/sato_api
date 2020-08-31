@@ -149,4 +149,39 @@ module.exports = {
             })
         });
     },
+    insertProjectTitle : (req,res) => {
+        let create = `insert into global set ?`
+        let check = 'select * from global'
+
+        let data ={
+            description_en: req.body.description_en,
+            description_id: req.body.description_id,
+            type: 'project_title'
+        }
+
+        db.query(check,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                if (result.length === 1) {
+                    let update = `update global set ? where type = 'project_title'`;
+                    db.query(update, data, (err, result) => {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            res.status(201).send(result)
+                        }
+                    })
+                } else {
+                    db.query(create,data,(err,result)=>{
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            return res.status(200).send({success:true,message:result});
+                        }
+                    })
+                }
+            }
+        })
+    }
 }
