@@ -47,35 +47,35 @@ module.exports = {
         let create = `insert into partnership set ?`
 
         let data ={
-            content: req.body.content
+            content: req.body.content,
+            content_id: req.body.content_id
         }
 
-        db.query(check,(err,result)=>{
-            if(err) {
-                console.log(err);
-            } else {
-                if (result.length === 1) {
-                    let update = `update partnership set ? where idpartnership = ${result[0].idpartnership}`;
-                    db.query(update, data, (err, result) => {
-                        if(err) {
-                            console.log(err);
-                        } else {
-                            res.status(201).send(result)
-                        }
-                    })
-                } else {
-                    db.query(create,data,(err,result)=>{
-                        if(err) {
-                            console.log(err);
-                        } else {
-                            return res.status(200).send({success:true,message:result});
-                        }
-                    })
-                }
-            }
-        })
-    },
-    getPartnership : (req,res) => {
-       
-    },
+        // db.query(check,(err,result)=>{
+        //     if(err) {
+        //         console.log(err);
+        //     } else {
+        //         if (result.length === 1) {
+        //             let update = `update partnership set ? where idpartnership = ${result[0].idpartnership}`;
+        //             db.query(update, data, (err, result) => {
+        //                 if(err) {
+        //                     console.log(err);
+        //                 } else {
+        //                     res.status(201).send(result)
+        //                 }
+        //             })
+        //         } else {
+        //             db.query(create,data,(err,result)=>{
+        //                 if(err) {
+        //                     console.log(err);
+        //                 } else {
+        //                     return res.status(200).send({success:true,message:result});
+        //                 }
+        //             })
+        //         }
+        //     }
+        // })
+
+        console.log(data);
+    }
 }

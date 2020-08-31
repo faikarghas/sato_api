@@ -6,7 +6,8 @@ module.exports = {
         let create = `insert into intouch set ?`
 
         let data ={
-            content: req.body.content
+            content: req.body.content,
+            content_id: req.body.content_id
         }
 
         db.query(check,(err,result)=>{

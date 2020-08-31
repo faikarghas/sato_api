@@ -36,17 +36,26 @@ module.exports = {
     },
     editHomeSlider : (req,res) => {
         let sql = `update home_slider set ? where idhomeslider = ${req.body.id}`;
-        let imageFile = req.files.file;
-        let filename = imageFile.name
-        let fileNameWithoutSpace = filename.replace(/\s/g, '');
 
-        let data ={
-            imageName: fileNameWithoutSpace,
+
+        let data2 ={
             description_en: req.body.desc_en,
             description_id: req.body.desc_id
         }
 
+        console.log(data2);
+
         if (req.files !== null) {
+            let imageFile = req.files.file;
+            let filename = imageFile.name
+            let fileNameWithoutSpace = filename.replace(/\s/g, '');
+
+            let data ={
+                imageName: fileNameWithoutSpace,
+                description_en: req.body.desc_en,
+                description_id: req.body.desc_id
+            }
+
             imageFile.mv(`${__dirname}/../images/${fileNameWithoutSpace}`, function (err) {
                 if (err) {
                     return res.status(500).send({success:false,file:req.files,body:req.body});
@@ -62,7 +71,14 @@ module.exports = {
                 }
             });
         } else {
-            return res.status(200).send({success:false,message:'File tidak ada'});
+            db.query(sql, data2, (err, result) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log(result);
+                    res.status(201).send(result)
+                }
+            })
         }
     },
     deleteHomeSlider : (req,res) => {
