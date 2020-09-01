@@ -36,7 +36,7 @@ module.exports = {
         })
     },
     insertContact : (req,res) => {
-        let create = `insert into intouch set ?`
+        let create = `insert into contact set ?`
 
         let data ={
             name: req.body.name,
