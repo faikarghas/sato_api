@@ -11,6 +11,7 @@ const ourTeam           = require('../routes/ourTeam');
 const slider           = require('../routes/slider');
 const faq           = require('../routes/faq');
 const intouch           = require('../routes/intouch');
+const admin           = require('../routes/admin');
 
 const app       = express();
 
@@ -29,6 +30,9 @@ app.use('/api',ourTeam)
 app.use('/api',slider)
 app.use('/api',faq)
 app.use('/api',intouch)
+
+app.use('/api',admin)
+
 
 
 app.use(logger('dev'))

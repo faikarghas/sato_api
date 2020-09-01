@@ -31,6 +31,9 @@ module.exports = {
     insertProject : (req,res) => {
         let sql = `insert into project set ?`
         let slug = req.body.name.toLowerCase().replace(/\s/g, '-');
+        let imageFile = req.files.file;
+        let filename = imageFile.name
+        let fileNameWithoutSpace = filename.replace(/\s/g, '');
 
         let data ={
             name: req.body.name,
@@ -43,35 +46,87 @@ module.exports = {
             category: req.body.category,
             description_en: req.body.desc_en,
             description_id: req.body.desc_id,
-            slug: slug
+            slug: slug,
+            thumbnail: fileNameWithoutSpace
         }
 
-        db.query(sql,data,(err,result)=>{
-            console.log(result);
-            res.send(result)
-        })
+        if (req.files !== null) {
+            imageFile.mv(`${__dirname}/../images/${fileNameWithoutSpace}`, function (err) {
+                if (err) {
+                    return res.status(500).send({success:false,file:req.files,body:req.body});
+                } else{
+                    db.query(sql, data, (err, result) => {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            console.log(result);
+                            res.status(201).send(result)
+                        }
+                    })
+                }
+            });
+        } else {
+            return res.status(200).send({success:false,message:'File tidak ada'});
+        }
     },
     editProject : (req,res) => {
-        let sql = `update project set ? where idProject = ${req.body.idProject}`;
-        let data ={
-            name: req.body.name,
-            client: req.body.client,
-            duration: req.body.duration,
-            location: req.body.location,
-            architect: req.body.architect,
-            area: req.body.area,
-            year: req.body.year,
-            category: req.body.category,
-            description_en: req.body.desc_en,
-            description_id: req.body.desc_id
-        }
-        db.query(sql, data, (err, result) => {
-            if(err) {
-                console.log(err);
-            } else {
-                res.status(201).send(result)
+        let sql = `update project set ? where idProject = ${req.body.idProject}`
+
+        if (req.files !== null) {
+            let imageFile = req.files.file;
+            let filename = imageFile.name
+            let fileNameWithoutSpace = filename.replace(/\s/g, '');
+
+            let data ={
+                name: req.body.name,
+                client: req.body.client,
+                duration: req.body.duration,
+                location: req.body.location,
+                architect: req.body.architect,
+                area: req.body.area,
+                year: req.body.year,
+                category: req.body.category,
+                description_en: req.body.desc_en,
+                description_id: req.body.desc_id,
+                thumbnail: fileNameWithoutSpace
             }
-        })
+
+            imageFile.mv(`${__dirname}/../images/${fileNameWithoutSpace}`, function (err) {
+                if (err) {
+                    return res.status(500).send({success:false,file:req.files,body:req.body});
+                } else{
+                    db.query(sql, data, (err, result) => {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            console.log(result);
+                            res.status(201).send(result)
+                        }
+                    })
+                }
+            });
+        } else {
+            let data ={
+                name: req.body.name,
+                client: req.body.client,
+                duration: req.body.duration,
+                location: req.body.location,
+                architect: req.body.architect,
+                area: req.body.area,
+                year: req.body.year,
+                category: req.body.category,
+                description_en: req.body.desc_en,
+                description_id: req.body.desc_id
+            }
+            db.query(sql, data, (err, result) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log(result);
+                    res.status(201).send(result)
+                }
+            })
+        }
 
     },
     deleteProject : (req,res) => {
