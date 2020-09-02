@@ -10,7 +10,8 @@ router.post('/insertProject', controller.insertProject)
 router.post('/insertCategory', controller.insertCategory)
 router.post('/deleteCategory', controller.deleteCategory)
 router.post('/insertProjectTitle', controller.insertProjectTitle)
-
+router.post('/insertOtherProjects', controller.insertOtherProjects)
+router.get('/getOtherProjects', controller.getOtherProjects)
 
 
 router.post('/deleteImage', controller.deleteImage)

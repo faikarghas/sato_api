@@ -238,5 +238,56 @@ module.exports = {
                 }
             }
         })
+    },
+    insertOtherProjects : (req,res) => {
+        let create = `insert into other_projects set ?`
+        let check = 'select * from other_projects'
+
+        let data ={
+            listproject: req.body.listproject,
+        }
+
+        let dataArray = []
+
+        let a = data.listproject.map((item,i)=>{
+            dataArray.push(item.idProject)
+        })
+
+        let finaldata = {listproject : dataArray.join(',')}
+
+        console.log(finaldata);
+
+        db.query(check,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                if (result.length === 1) {
+                    let update = `update other_projects set ? where idotherproject = ${result[0].idotherproject}`;
+                    db.query(update, finaldata, (err, result) => {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            res.status(201).send(result)
+                        }
+                    })
+                } else {
+                    db.query(create,finaldata,(err,result)=>{
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            return res.status(200).send({success:true,message:result});
+                        }
+                    })
+                }
+            }
+        })
+    },
+    getOtherProjects : (req,res) => {
+        let sql = `select * from other_projects`
+
+        db.query(sql,(err,result)=>{
+
+            res.json({ other_projects: result })
+        })
     }
 }
