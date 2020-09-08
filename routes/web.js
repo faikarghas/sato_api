@@ -17,6 +17,9 @@ router.get('/studies', controller.studies)
 router.get('/testimonials', controller.testimonials)
 router.get('/our_team', controller.our_team)
 router.get('/partnership', controller.partnership)
+router.post('/insertWhatsapp', controller.insertWhatsapp)
+
+
 
 
 

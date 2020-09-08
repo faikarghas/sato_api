@@ -286,7 +286,6 @@ module.exports = {
         let sql = `select * from other_projects`
 
         db.query(sql,(err,result)=>{
-
             res.json({ other_projects: result })
         })
     }

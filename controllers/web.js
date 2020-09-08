@@ -110,4 +110,19 @@ module.exports = {
             res.json({ partnership: result })
         })
     },
+    insertWhatsapp: (req,res) => {
+        let create = `insert into whatsapp set ?`
+
+        let data ={
+            phone: req.body.phone
+        }
+
+        db.query(create,data,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                return res.status(200).send({success:true,message:result});
+            }
+        })
+    }
 }
