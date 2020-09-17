@@ -11,6 +11,7 @@ const ourTeam           = require('../routes/ourTeam');
 const slider           = require('../routes/slider');
 const faq           = require('../routes/faq');
 const intouch           = require('../routes/intouch');
+const search           = require('../routes/search');
 const admin           = require('../routes/admin');
 const web           = require('../routes/web');
 
@@ -31,6 +32,7 @@ app.use('/api',ourTeam)
 app.use('/api',slider)
 app.use('/api',faq)
 app.use('/api',intouch)
+app.use('/api',search)
 
 app.use('/api',admin)
 app.use('/api',web)

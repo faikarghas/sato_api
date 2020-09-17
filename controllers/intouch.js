@@ -1,4 +1,5 @@
 const db = require('../db')
+const nodemailer = require('nodemailer');
 
 module.exports = {
     insertIntouch : (req,res) => {
@@ -35,9 +36,8 @@ module.exports = {
             }
         })
     },
-    insertContact : (req,res) => {
-        let create = `insert into contact set ?`
-
+    insertContactPromo : (req,res) => {
+        let create = `insert into contact_promo set ?`
         let data ={
             name: req.body.name,
             email: req.body.email,
@@ -45,7 +45,66 @@ module.exports = {
             message: req.body.message
         }
 
-        db.query(create,data,(err,result)=>{
+        let sql = `select * from email_receivers`
+        db.query(sql,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                let listEmail
+
+                listEmail = result.map(item=>{
+                    return item.email
+                })
+
+                console.log(listEmail);
+
+                db.query(create,data,(err,result)=>{
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        var transporter = nodemailer.createTransport({
+                            host: 'mail.sato.id',
+                            port: 465,
+                            pool:true,
+                            secure: true,
+                            tls: {
+                                rejectUnauthorized: false
+                            },
+                            user:'admin@sato.id',
+                            pass:'satosato123!'
+                        });
+                        const mailOptions = {
+                            from: 'admin@sato.id', // sender address
+                            to: 'ghassanfaikar13@gmail.com', // list of receivers
+                            subject: 'Leads Promo', // Subject line
+                            html:   `
+                                    <h3>Profile :</h3>
+                                    <p style="margin:0;">${req.body.name}</p> <br/>
+                                    <p style="margin:0;">${req.body.email}</p> <br/>
+                                    <p style="margin:0;">${req.body.phoneNumber}</p> <br/>
+                                    <h3>Message :</h3>
+                                    <p>${req.body.message}</p>
+                                    `,
+                        };
+                        transporter.sendMail(mailOptions, function (err, info) {
+                            if(err){
+                                console.log(err)
+                                res.send(err)
+                            }else {
+                                console.log(info);
+                                res.send(info)
+                            }
+                            res.status(201).send(err,info)
+                        });
+                    }
+                })
+            }
+        })
+
+    },
+    getContactPromo : (req,res) => {
+        let sql = `select * from contact_promo`
+        db.query(sql,(err,result)=>{
             if(err) {
                 console.log(err);
             } else {

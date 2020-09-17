@@ -6,7 +6,8 @@ router.use(bodyParser.json())
 
 
 router.post('/insertIntouch', controller.insertIntouch)
-router.post('/insertContact', controller.insertContact)
+router.post('/insertContactPromo', controller.insertContactPromo)
+router.get('/getContactPromo', controller.getContactPromo)
 
 
 module.exports = router;
