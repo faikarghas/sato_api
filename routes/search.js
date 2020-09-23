@@ -4,7 +4,7 @@ const controller = require('../controllers/search')
 
 router.use(bodyParser.json())
 
-router.post('/search/:search',controller.search)
+router.get('/search/:search',controller.search)
 
 
 module.exports = router;
