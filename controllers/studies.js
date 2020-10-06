@@ -36,7 +36,6 @@ module.exports = {
     },
     editStudies : (req,res) => {
         let sql = `update studies set ? where idstudies = ${req.body.idstudies}`;
-        
 
         if (req.files !== null) {
             let imageFile = req.files.file;

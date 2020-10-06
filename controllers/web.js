@@ -88,7 +88,7 @@ module.exports = {
         })
     },
     testimonials : (req,res) => {
-        let sql = `select * from testimonials ORDER BY DESC`
+        let sql = `select * from testimonials ORDER BY idtestimonials DESC`
 
         db.query(sql,(err,result)=>{
 
