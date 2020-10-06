@@ -288,5 +288,20 @@ module.exports = {
         db.query(sql,(err,result)=>{
             res.json({ other_projects: result })
         })
-    }
+    },
+    reorder : (req,res) => {
+        let sql = `update project set ? where idProject = ${req.body.idProject}`
+
+        let data = {
+            reorder: req.body.reorder,
+        }
+
+        db.query(sql,data,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                return res.status(200).send({success:true,message:result});
+            }
+        })
+    },
 }
