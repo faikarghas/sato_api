@@ -56,7 +56,7 @@ module.exports = {
         })
     },
     project : (req,res) => {
-        let sql = `select * from project`
+        let sql = `select * from project order by reorder ASC`
 
         db.query(sql,(err,result)=>{
 
