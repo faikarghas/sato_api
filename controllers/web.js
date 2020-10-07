@@ -35,7 +35,7 @@ module.exports = {
         })
     },
     intouchSlider : (req,res) => {
-        let sql = `select * from intouch_slider order by id DESC`
+        let sql = `select * from intouch_slider order by idintouchslider DESC`
 
         db.query(sql,(err,result)=>{
 
