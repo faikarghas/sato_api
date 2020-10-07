@@ -34,6 +34,14 @@ module.exports = {
             res.json({ intouch: result })
         })
     },
+    intouchSlider : (req,res) => {
+        let sql = `select * from intouch_slider order by id DESC`
+
+        db.query(sql,(err,result)=>{
+
+            res.json({ intouch: result })
+        })
+    },
     projectAccom : (req,res) => {
         let sql = ` SELECT
         category,
