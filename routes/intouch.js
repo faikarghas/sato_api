@@ -9,5 +9,8 @@ router.post('/insertIntouch', controller.insertIntouch)
 router.post('/insertContactPromo', controller.insertContactPromo)
 router.get('/getContactPromo', controller.getContactPromo)
 
+router.post('/insertIntouchSlider', controller.insertIntouchSlider)
+router.post('/editIntouchSlider', controller.editIntouchSlider)
+router.post('/deleteIntouchSlider', controller.deleteIntouchSlider)
 
 module.exports = router;
