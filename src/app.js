@@ -3,6 +3,7 @@ const cors              = require('cors');
 const logger            = require('morgan');
 const fileUpload        = require('express-fileupload');
 
+
 const project           = require('../routes/project');
 const career           = require('../routes/career');
 const studies           = require('../routes/studies');
@@ -14,6 +15,7 @@ const intouch           = require('../routes/intouch');
 const search           = require('../routes/search');
 const admin           = require('../routes/admin');
 const web           = require('../routes/web');
+const auth           = require('../routes/authentication');
 
 const app       = express();
 
@@ -24,6 +26,7 @@ app.use(fileUpload());
 
 app.use('/images', express.static(__dirname + '/../images'));
 
+app.use('/api',auth)
 app.use('/api',project)
 app.use('/api',career)
 app.use('/api',studies)

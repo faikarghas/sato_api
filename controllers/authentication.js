@@ -18,10 +18,10 @@ module.exports = {
 
         let data = {email, hashPassword: hashPassword(password)};
 
-        console.log(data);
 
         // cek email sudah terdaftar / belum
         let checkEmailQuery = `select * from users where email = ?`
+
         db.query(checkEmailQuery,email,(err,result)=>{
             if (result.length > 0) {
                 res.send({
