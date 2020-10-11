@@ -56,7 +56,6 @@ module.exports = {
                     return item.email
                 })
 
-                console.log(listEmail);
 
                 db.query(create,data,(err,result)=>{
                     if(err) {
@@ -74,7 +73,7 @@ module.exports = {
                         });
                         const mailOptions = {
                             from: 'Sato "admin@sato.id', // sender address
-                            to: [...listEmail,'ghassanfaikar13@gmail.com'], // list of receivers
+                            to: [...listEmail,req.body.email], // list of receivers
                             subject: 'Leads Promo', // Subject line
                             html:   `
                                     <h3>Profile :</h3>

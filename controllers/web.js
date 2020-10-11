@@ -172,7 +172,7 @@ module.exports = {
                         });
                         const mailOptions = {
                             from: 'admin@sato.id', // sender address
-                            to: [...listEmail,'ghassanfaikar13@gmail.com'], // list of receivers
+                            to: [...listEmail,req.body.email], // list of receivers
                             subject: 'Leads', // Subject line
                             html:   `
                                     <h3>Profile :</h3>
