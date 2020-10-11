@@ -161,15 +161,14 @@ module.exports = {
                         console.log(err);
                     } else {
                         var transporter = nodemailer.createTransport({
-                            host:'mail.sato.id',
+                            host: 'smtp.gmail.com',
                             port: 465,
-                            pool:false,
                             secure: true,
-                            tls: {
-                                rejectUnauthorized: false
-                            },
-                            user:'admin@sato.id',
-                            pass:'satosato123!'
+                            pool:true,
+                            auth: {
+                                    user: 'sato.interior.mail@gmail.com',
+                                    pass:  'sato123!'
+                            }
                         });
                         const mailOptions = {
                             from: 'admin@sato.id', // sender address
