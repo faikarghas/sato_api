@@ -1,5 +1,6 @@
 const db = require('../db')
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
 module.exports = {
     insertIntouch : (req,res) => {
@@ -112,31 +113,43 @@ module.exports = {
     },
     insertIntouchSlider : (req,res) => {
         let sql = `insert into intouch_slider set ?`
-        let imageFile = req.files.file;
-        let filename = imageFile.name
-        let fileNameWithoutSpace = filename.replace(/\s/g, '');
+        let imageFileDesktop = req.files.file[0];
+        let imageFileMobile = req.files.file[1];
+        let filename1 = imageFileDesktop.name
+        let filename2 = imageFileMobile.name
+
+        function fileNameWithoutSpace(filename) {
+            return  filename.replace(/\s/g, '');
+        }
 
         let data ={
             name: req.body.name,
-            images: fileNameWithoutSpace
+            images: fileNameWithoutSpace(filename1),
+            imageMobile: fileNameWithoutSpace(filename2),
         }
 
-        console.log(data);
 
         if (req.files !== null) {
-            imageFile.mv(`${__dirname}/../images/intouch/${fileNameWithoutSpace}`, function (err) {
+            imageFileDesktop.mv(`${__dirname}/../images/intouch/desktop/${fileNameWithoutSpace(filename1)}`, function (err) {
                 if (err) {
                     console.log(err);
                     return res.status(500).send({success:false,file:req.files,body:req.body});
                 } else{
-                    db.query(sql, data, (err, result) => {
-                        if(err) {
+                    imageFileMobile.mv(`${__dirname}/../images/intouch/mobile/${fileNameWithoutSpace(filename2)}`, function (err) {
+                        if (err) {
                             console.log(err);
-                        } else {
-                            console.log(result);
-                            res.status(201).send(result)
+                            return res.status(500).send({success:false,file:req.files,body:req.body});
+                        } else{
+                            db.query(sql, data, (err, result) => {
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                    console.log(result);
+                                    res.status(201).send(result)
+                                }
+                            })
                         }
-                    })
+                    });
                 }
             });
         } else {
@@ -147,28 +160,41 @@ module.exports = {
         let sql = `update intouch_slider set ? where idintouchslider = ${req.body.idintouchslider}`;
 
         if (req.files !== null) {
-            let imageFile = req.files.file;
-            let filename = imageFile.name
-            let fileNameWithoutSpace = filename.replace(/\s/g, '');
+            let imageFileDesktop = req.files.file[0];
+            let imageFileMobile = req.files.file[1];
+            let filename1 = imageFileDesktop.name
+            let filename2 = imageFileMobile.name
+
+            function fileNameWithoutSpace(filename) {
+                return  filename.replace(/\s/g, '');
+            }
 
             let data ={
                 name: req.body.name,
-                images: fileNameWithoutSpace
+                images: fileNameWithoutSpace(filename1),
+                imageMobile: fileNameWithoutSpace(filename2),
             }
 
-            imageFile.mv(`${__dirname}/../images/intouch/${fileNameWithoutSpace}`, function (err) {
+            imageFileDesktop.mv(`${__dirname}/../images/intouch/desktop/${fileNameWithoutSpace(filename1)}`, function (err) {
                 if (err) {
-                    console.log('err');
+                    console.log(err);
                     return res.status(500).send({success:false,file:req.files,body:req.body});
                 } else{
-                    db.query(sql, data, (err, result) => {
-                        if(err) {
+                    imageFileMobile.mv(`${__dirname}/../images/intouch/mobile/${fileNameWithoutSpace(filename2)}`, function (err) {
+                        if (err) {
                             console.log(err);
-                        } else {
-                            console.log(result);
-                            res.status(201).send(result)
+                            return res.status(500).send({success:false,file:req.files,body:req.body});
+                        } else{
+                            db.query(sql, data, (err, result) => {
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                    console.log(result);
+                                    res.status(201).send(result)
+                                }
+                            })
                         }
-                    })
+                    });
                 }
             });
         } else {
@@ -187,13 +213,27 @@ module.exports = {
         }
     },
     deleteIntouchSlider: (req,res) => {
-        let sql = `delete from intouch_slider where idintouchslider = ${req.body.idintouchslider}`
+        let select = `select * from intouch_slider where idintouchslider = ${req.body.idintouchslider}`
+        let deleteFile = `delete from intouch_slider where idintouchslider = ${req.body.idintouchslider}`
 
-        db.query(sql,(err,result)=>{
+
+        db.query(select,(err,result)=>{
             if(err) {
                 console.log(err);
             } else {
-                return res.status(200).send({success:true,message:result});
+                let filePathDesktop = `${__dirname}/../images/intouch/desktop/${result[0].images}`;
+                let filePathMobile = `${__dirname}/../images/intouch/mobile/${result[0].imageMobile}`;
+
+                fs.unlinkSync(filePathDesktop);
+                fs.unlinkSync(filePathMobile);
+
+                db.query(deleteFile,(err,result)=>{
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        return res.status(200).send({success:true,message:result});
+                    }
+                })
             }
 
         })
