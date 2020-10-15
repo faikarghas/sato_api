@@ -63,13 +63,13 @@ module.exports = {
                         console.log(err);
                     } else {
                         var transporter = nodemailer.createTransport({
-                            host: 'smtp.gmail.com',
-                            port: 465,
-                            secure: true,
+                            host: 'smtp-relay.sendinblue.com',
+                            port: 587,
+                            secure: false,
                             pool:true,
                             auth: {
-                                    user: 'sato.interior.mail@gmail.com',
-                                    pass:  'sato123!'
+                                    user: 'admin@owlandfoxes.co.id',
+                                    pass:  'pWjfL7w19cCT3Zxr'
                             }
                         });
                         const mailOptions = {
