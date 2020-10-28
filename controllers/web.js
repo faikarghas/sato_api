@@ -208,7 +208,7 @@ module.exports = {
 
     },
     getContact: (req,res) => {
-        let sql = `select * from contact`
+        let sql = `select * from contact order by date DESC`
         db.query(sql,(err,result)=>{
             if(err) {
                 console.log(err);

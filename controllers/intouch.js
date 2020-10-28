@@ -102,7 +102,7 @@ module.exports = {
 
     },
     getContactPromo : (req,res) => {
-        let sql = `select * from contact_promo`
+        let sql = `select * from contact_promo order by date DESC`
         db.query(sql,(err,result)=>{
             if(err) {
                 console.log(err);
