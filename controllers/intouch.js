@@ -274,15 +274,15 @@ module.exports = {
         }
     },
     deleteImageIntouch: (req,res) => {
-        let select = `select * from images_intouch where idImages = ${req.body.idintouchslider}`
-        let deleteFile = `delete from images_intouch where idImages = ${req.body.idintouchslider}`
+        let select = `select * from images_intouch where idimages = ${req.body.id}`
+        let deleteFile = `delete from images_intouch where idimages = ${req.body.id}`
 
 
         db.query(select,(err,result)=>{
             if(err) {
                 console.log(err);
             } else {
-                let filePath = `${__dirname}/../images/intouch/${result[0].images}`;
+                let filePath = `${__dirname}/../images/intouch/${result[0].imageName}`;
 
                 fs.unlinkSync(filePath);
 
