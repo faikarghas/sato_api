@@ -13,4 +13,9 @@ router.post('/insertIntouchSlider', controller.insertIntouchSlider)
 router.post('/editIntouchSlider', controller.editIntouchSlider)
 router.post('/deleteIntouchSlider', controller.deleteIntouchSlider)
 
+router.post('/insertImageIntouch', controller.insertImageIntouch)
+router.get('/getImageIntouch', controller.getImageIntouch)
+router.post('/deleteImageIntouch', controller.deleteImageIntouch)
+
+
 module.exports = router;

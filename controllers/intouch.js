@@ -237,6 +237,76 @@ module.exports = {
             }
 
         })
-    }
+    },
+    insertImageIntouch: (req,res) => {
+        let sql = `insert into images_intouch set ?`
+        let imageFile = req.files.file;
+        let filename = imageFile.name
 
+        function fileNameWithoutSpace(filename) {
+            return  filename.replace(/\s/g, '');
+        }
+
+        let data ={
+            imageName: fileNameWithoutSpace(filename),
+        }
+
+        console.log(filename);
+
+        if (req.files !== null) {
+            imageFile.mv(`${__dirname}/../images/intouch/desktop/${fileNameWithoutSpace(filename)}`, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send({success:false,file:req.files,body:req.body});
+                } else{
+                    db.query(sql, data, (err, result) => {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            console.log(result);
+                            res.status(201).send(result)
+                        }
+                    })
+                }
+            });
+        } else {
+            return res.status(200).send({success:false,message:'File tidak ada'});
+        }
+    },
+    deleteImageIntouch: (req,res) => {
+        let select = `select * from images_intouch where idImages = ${req.body.idintouchslider}`
+        let deleteFile = `delete from images_intouch where idImages = ${req.body.idintouchslider}`
+
+
+        db.query(select,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                let filePath = `${__dirname}/../images/intouch/${result[0].images}`;
+
+                fs.unlinkSync(filePath);
+
+                db.query(deleteFile,(err,result)=>{
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        return res.status(200).send({success:true,message:result});
+                    }
+                })
+            }
+
+        })
+    },
+    getImageIntouch: (req,res) => {
+        let sql = 'select * from images_intouch'
+
+        db.query(sql,(err,result)=>{
+            if(err) {
+                console.log(err);
+            } else {
+                return res.status(200).send({success:true,message:result});
+            }
+        })
+
+    }
 }
