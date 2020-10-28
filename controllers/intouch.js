@@ -254,7 +254,7 @@ module.exports = {
         console.log(filename);
 
         if (req.files !== null) {
-            imageFile.mv(`${__dirname}/../images/intouch/desktop/${fileNameWithoutSpace(filename)}`, function (err) {
+            imageFile.mv(`${__dirname}/../images/intouch/${fileNameWithoutSpace(filename)}`, function (err) {
                 if (err) {
                     console.log(err);
                     return res.status(500).send({success:false,file:req.files,body:req.body});
