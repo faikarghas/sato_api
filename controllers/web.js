@@ -167,8 +167,8 @@ module.exports = {
                             secure: false,
                             pool:true,
                             auth: {
-                                    user: 'admin@owlandfoxes.co.id',
-                                    pass:  'pWjfL7w19cCT3Zxr'
+                                    user: 'sato.interior.mail@gmail.com',
+                                    pass:  '25RdaLM3NHvPA18f'
                             }
                         });
                         const mailOptions = {
