@@ -167,22 +167,23 @@ module.exports = {
                             secure: false,
                             pool:true,
                             auth: {
-                                    user: 'sato.interior.mail@gmail.com',
-                                    pass:  '25RdaLM3NHvPA18f'
+                                    user: 'owlandfoxes.co.id',
+                                    pass:  'J4oxbfQO5Jlf'
                             }
                         });
                         const mailOptions = {
                             from: 'admin@sato.id', // sender address
-                            to: [...listEmail,req.body.email], // list of receivers
+                            to: [...listEmail], // list of receivers
                             subject: 'Leads', // Subject line
-                            html:   `
-                                    <h3>Profile :</h3>
-                                    <p style="margin:0;">${req.body.name}</p> <br/>
-                                    <p style="margin:0;">${req.body.email}</p> <br/>
-                                    <p style="margin:0;">${req.body.phoneNumber}</p> <br/>
-                                    <h3>Message :</h3>
-                                    <p>${req.body.message}</p>
-                                    `,
+                            html:  `
+                            <h3>Hi, good news team </h3>
+                            <p>Ada yang baru saja mengisi inquiry form dari website, berikut datanya:</p>
+                            <p style="margin:0;">Nama : ${req.body.name}</p> <br/>
+                            <p style="margin:0;">Email : ${req.body.email}</p> <br/>
+                            <p style="margin:0;">No. Telp : ${req.body.phoneNumber}</p> <br/>
+                            <p>Mohon segera menghubunginya.</p>
+                            <p>Terimakasih</p>
+                            `,
                         };
                         transporter.verify(function(error, success) {
                             if (error) {
