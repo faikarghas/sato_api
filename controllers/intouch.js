@@ -68,8 +68,8 @@ module.exports = {
                             // secure: false,
                             pool:true,
                             auth: {
-                                    user: 'owlandfoxes.co.id',
-                                    pass:  'J4oxbfQO5Jlf'
+                                    user:'dignite.studio',
+                                    pass: 'XgLzvmDkPyGS'
                             }
                         });
                         const mailOptions = {
