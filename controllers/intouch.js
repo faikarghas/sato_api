@@ -225,8 +225,8 @@ module.exports = {
                 let filePathDesktop = `${__dirname}/../images/intouch/desktop/${result[0].images}`;
                 let filePathMobile = `${__dirname}/../images/intouch/mobile/${result[0].imageMobile}`;
 
-                fs.unlinkSync(filePathDesktop);
-                fs.unlinkSync(filePathMobile);
+                // fs.unlinkSync(filePathDesktop);
+                // fs.unlinkSync(filePathMobile);
 
                 db.query(deleteFile,(err,result)=>{
                     if(err) {
