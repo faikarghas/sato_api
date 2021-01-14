@@ -68,8 +68,8 @@ module.exports = {
                             // secure: false,
                             pool:true,
                             auth: {
-                                    user:'dignite.studio',
-                                    pass: 'XgLzvmDkPyGS'
+                                    user:'sato.id',
+                                    pass: 'zrT8ihIsUkih'
                             }
                         });
                         const mailOptions = {
@@ -175,6 +175,7 @@ module.exports = {
                 images: fileNameWithoutSpace(filename1),
                 imageMobile: fileNameWithoutSpace(filename2),
             }
+
 
             imageFileDesktop.mv(`${__dirname}/../images/intouch/desktop/${fileNameWithoutSpace(filename1)}`, function (err) {
                 if (err) {

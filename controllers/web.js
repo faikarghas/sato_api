@@ -167,8 +167,8 @@ module.exports = {
                             secure: false,
                             pool:true,
                             auth: {
-                                user:'dignite.studio',
-                                pass: 'XgLzvmDkPyGS'
+                                user:'sato.id',
+                                pass: 'zrT8ihIsUkih'
                             }
                         });
                         const mailOptions = {
