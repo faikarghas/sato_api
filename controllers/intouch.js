@@ -62,14 +62,24 @@ module.exports = {
                     if(err) {
                         console.log(err);
                     } else {
+                        // var transporter = nodemailer.createTransport({
+                        //     host: 'mail.smtp2go.com',
+                        //     port: 587,
+                        //     // secure: false,
+                        //     pool:true,
+                        //     auth: {
+                        //             user:'sato.id',
+                        //             pass: 'zrT8ihIsUkih'
+                        //     }
+                        // });
                         var transporter = nodemailer.createTransport({
-                            host: 'mail.smtp2go.com',
-                            port: 587,
-                            // secure: false,
+                            host: 'smtp.gmail.com',
+                            port: 465,
+                            secure: true,
                             pool:true,
                             auth: {
-                                    user:'sato.id',
-                                    pass: 'zrT8ihIsUkih'
+                                    user:'sato.interior.mail@gmail.com',
+                                    pass:'sato123!'
                             }
                         });
                         const mailOptions = {

@@ -161,14 +161,24 @@ module.exports = {
                     if(err) {
                         console.log(err);
                     } else {
+                        // var transporter = nodemailer.createTransport({
+                        //     host: 'smtp-relay.sendinblue.com',
+                        //     port: 587,
+                        //     secure: false,
+                        //     pool:true,
+                        //     auth: {
+                        //         user:'sato.interior.mail@gmail.com',
+                        //         pass: '25RdaLM3NHvPA18f'
+                        //     }
+                        // });
                         var transporter = nodemailer.createTransport({
-                            host: 'smtp-relay.sendinblue.com',
-                            port: 587,
-                            secure: false,
+                            host: 'smtp.gmail.com',
+                            port: 465,
+                            secure: true,
                             pool:true,
                             auth: {
-                                user:'sato.id',
-                                pass: 'zrT8ihIsUkih'
+                                    user:'sato.interior.mail@gmail.com',
+                                    pass:'sato123!'
                             }
                         });
                         const mailOptions = {
